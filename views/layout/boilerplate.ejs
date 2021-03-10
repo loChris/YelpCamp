@@ -12,10 +12,12 @@
 		/>
 		<title>Boilerplate</title>
 	</head>
-	<body>
-		<nav><%- include('../partials/navbar.ejs') %></nav>
+	<body class="d-flex flex-column vh-100">
+		<%- include('../partials/navbar.ejs') %>
 
 		<main class="container mt-5"><%- body %></main>
+
+		<%- include('../partials/footer.ejs') %>
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
