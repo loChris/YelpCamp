@@ -71,10 +71,6 @@ app.delete('/campgrounds/:id', async (req, res) => {
 	res.redirect('/campgrounds');
 });
 
-app.use((req, res) => {
-	res.status(404).send('Not Found');
-});
-
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}...`);
 });

@@ -6,38 +6,46 @@
 		<form
 			action="/campgrounds/<%= campground._id %>?_method=PUT"
 			method="POST"
+			novalidate
+			class="needs-validation"
 		>
 			<div class="mb-3">
 				<label class="form-label" for="title">Title</label>
 				<input
+					required
 					class="form-control"
 					type="text"
 					name="campground[title]"
 					id="title"
 					value="<%= campground.title %>"
 				/>
+				<div class="valid-feedback">Looks Good!</div>
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="location">Location</label>
 				<input
+					required
 					class="form-control"
 					type="text"
 					name="campground[location]"
 					id="location"
 					value="<%= campground.location %>"
 				/>
+				<div class="valid-feedback">Looks Good!</div>
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="image">Image</label>
 				<input
+					required
 					class="form-control"
 					type="text"
 					name="campground[image]"
 					id="image"
 					value="<%= campground.image %>"
 				/>
+				<div class="valid-feedback">Looks Good!</div>
 			</div>
 
 			<div class="mb-3">
@@ -45,6 +53,7 @@
 				<div class="input-group">
 					<span class="input-group-text">$</span>
 					<input
+						required
 						type="text"
 						name="campground[price]"
 						class="form-control"
@@ -52,13 +61,14 @@
 						id="price"
 						value="<%= campground.price %>"
 					/>
-					<span class="input-group-text">.00</span>
+					<div class="valid-feedback">Looks Good!</div>
 				</div>
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="description">Description</label>
 				<textarea
+					required
 					class="form-control"
 					name="campground[description]"
 					id="description"
@@ -67,6 +77,7 @@
 				>
 <%= campground.description %></textarea
 				>
+				<div class="valid-feedback">Looks Good!</div>
 			</div>
 
 			<div class="mb-3">
