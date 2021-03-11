@@ -99,8 +99,11 @@ app.all('*', (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-	const { statusCode = 500, message = 'Oops! Something went wrong...' } = err;
-	res.status(statusCode).send(message);
+	const { statusCode = 500, message } = err;
+	if (!err.message) {
+		err.message = 'Oops! Something went wrong...';
+	}
+	res.status(statusCode).render('error', { err });
 });
 
 app.listen(PORT, () => {
