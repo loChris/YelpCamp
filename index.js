@@ -4,9 +4,11 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const joi = require('joi');
 const Campground = require('./models/campground');
 const CatchAsync = require('./utils/CatchAsync');
 const ExpressError = require('./utils/ExpressError');
+const Joi = require('joi');
 const app = express();
 const db = mongoose.connection;
 const PORT = 3000;
@@ -65,8 +67,20 @@ app.get(
 app.post(
 	'/campgrounds',
 	CatchAsync(async (req, res, next) => {
-		if (!req.body.campground) {
-			throw new ExpressError(400, 'Invalid Campground Data');
+		// Joi serverside validation
+		const campgroundJoiSchema = joi.object({
+			campground: Joi.object({
+				title: Joi.string().required(),
+				price: Joi.number().required().min(0),
+				image: Joi.string().required(),
+				location: Joi.string().required(),
+				description: Joi.string().required(),
+			}).required(),
+		});
+		const { error } = campgroundJoiSchema.validate(req.body);
+		if (error) {
+			const message = error.details.map((el) => el.message).join(',');
+			throw new ExpressError(400, message);
 		}
 		const campground = new Campground(req.body.campground);
 		await campground.save();
