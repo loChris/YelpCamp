@@ -31,5 +31,32 @@
 			</div>
 			<div class="card-footer text-muted">2 days ago</div>
 		</div>
+		<form class="mb-3" action="">
+			<div class="mb-3">
+				<label class="form-label" for="rating">Rating</label>
+				<input
+					class="form-range"
+					type="range"
+					min="1"
+					max="5"
+					name="review[rating]"
+					id="rating"
+				/>
+			</div>
+
+			<h2>Leave a Review</h2>
+
+			<div class="mb-3">
+				<label class="form-label" for="reviewbody">Review</label>
+				<textarea
+					class="form-control"
+					name="review[body]"
+					id="reviewbody"
+					cols="30"
+					rows="3"
+				></textarea>
+			</div>
+			<button class="btn btn-success">Submit</button>
+		</form>
 	</div>
 </div>
