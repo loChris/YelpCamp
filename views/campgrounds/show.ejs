@@ -31,7 +31,12 @@
 			</div>
 			<div class="card-footer text-muted">2 days ago</div>
 		</div>
-		<form class="mb-3" action="">
+		<form
+			novalidate
+			class="mb-3 needs-validation"
+			action="/campgrounds/<%= campground._id %>/reviews"
+			method="POST"
+		>
 			<div class="mb-3">
 				<label class="form-label" for="rating">Rating</label>
 				<input
@@ -49,12 +54,14 @@
 			<div class="mb-3">
 				<label class="form-label" for="reviewbody">Review</label>
 				<textarea
+					required
 					class="form-control"
 					name="review[body]"
 					id="reviewbody"
 					cols="30"
 					rows="3"
 				></textarea>
+				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<button class="btn btn-success">Submit</button>
 		</form>

@@ -4,10 +4,13 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
-const { campgroundJoiSchema } = require('./schemas.js');
+const { campgroundJoiSchema, reviewJoiSchema } = require('./schemas.js');
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 const CatchAsync = require('./utils/CatchAsync');
 const ExpressError = require('./utils/ExpressError');
+const campground = require('./models/campground');
+const review = require('./models/review');
 const app = express();
 const db = mongoose.connection;
 const PORT = 3000;
@@ -15,6 +18,16 @@ const PORT = 3000;
 // Joi serverside validation for forms
 const joiValidateCampground = (req, res, next) => {
 	const { error } = campgroundJoiSchema.validate(req.body);
+	if (error) {
+		const message = error.details.map((el) => el.message).join(',');
+		throw new ExpressError(400, message);
+	} else {
+		return next();
+	}
+};
+
+const joiValidateReview = (req, res, next) => {
+	const { error } = reviewJoiSchema.validate(req.body);
 	if (error) {
 		const message = error.details.map((el) => el.message).join(',');
 		throw new ExpressError(400, message);
@@ -45,6 +58,7 @@ app.get('/', (req, res) => {
 	res.render('home');
 });
 
+// *** CAMPGROUND ROUTES ***
 app.get(
 	'/campgrounds',
 	CatchAsync(async (req, res) => {
@@ -102,6 +116,20 @@ app.delete(
 		const { id } = req.params;
 		await Campground.findByIdAndDelete(id);
 		res.redirect('/campgrounds');
+	})
+);
+
+// *** REVIEW ROUTES ***
+app.post(
+	'/campgrounds/:id/reviews',
+	joiValidateReview,
+	CatchAsync(async (req, res) => {
+		const campground = await Campground.findById(req.params.id);
+		const review = new Review(req.body.review);
+		campground.reviews.push(review);
+		await review.save();
+		await campground.save();
+		res.redirect(`/campgrounds/${campground._id}`);
 	})
 );
 
