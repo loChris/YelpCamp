@@ -12,6 +12,7 @@ const app = express();
 const db = mongoose.connection;
 const PORT = 3000;
 
+// Joi serverside validation for forms
 const joiValidateCampground = (req, res, next) => {
 	const { error } = campgroundJoiSchema.validate(req.body);
 	if (error) {
