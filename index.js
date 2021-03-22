@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
+const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
@@ -10,6 +12,17 @@ const reviews = require('./routes/reviews');
 const app = express();
 const db = mongoose.connection;
 const PORT = 3000;
+
+const sessionConfig = {
+	secret: 'thisshouldbeabettersecret',
+	resave: false,
+	saveUninitialized: true,
+	cookie: {
+		httpOnly: true,
+		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+		maxAge: Date.now(),
+	},
+};
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
 	useNewUrlParser: true,
@@ -30,9 +43,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(morgan('combined'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session(sessionConfig));
+app.use(flash());
 
 app.get('/', (req, res) => {
 	res.render('home');
+});
+
+app.use((req, res, next) => {
+	res.locals.success = req.flash('success');
+	res.locals.error = req.flash('error');
+	return next();
 });
 
 // *** CAMPGROUND ROUTES ***
