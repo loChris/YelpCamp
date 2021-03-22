@@ -44,6 +44,7 @@ router.get(
 	})
 );
 
+// flashes a success banner when campground is successfully added via partial (same with other flashes)
 router.post(
 	'/',
 	joiValidateCampground,
@@ -55,6 +56,7 @@ router.post(
 	})
 );
 
+// flashes banner when campground is updated
 router.put(
 	'/:id',
 	joiValidateCampground,
@@ -63,15 +65,18 @@ router.put(
 		const campground = await Campground.findByIdAndUpdate(id, {
 			...req.body.campground,
 		});
+		req.flash('success', 'Successfully updated campground!');
 		res.redirect(`/campgrounds/${campground._id}`);
 	})
 );
 
+// flashes banner when campground is deleted
 router.delete(
 	'/:id',
 	CatchAsync(async (req, res) => {
 		const { id } = req.params;
 		await Campground.findByIdAndDelete(id);
+		req.flash('success', 'Successfully deleted campground!');
 		res.redirect('/campgrounds');
 	})
 );
