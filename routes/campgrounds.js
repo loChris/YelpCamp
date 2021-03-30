@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { isAuthed } = require('../middleware');
 const { campgroundJoiSchema } = require('../schemas.js');
 const CatchAsync = require('../utils/CatchAsync');
 const ExpressError = require('../utils/ExpressError');
@@ -23,7 +24,7 @@ router.get(
 	})
 );
 
-router.get('/new', (req, res) => {
+router.get('/new', isAuthed, (req, res) => {
 	res.render('campgrounds/new');
 });
 
@@ -55,6 +56,7 @@ router.get(
 // flashes a success banner when campground is successfully added via partial (same with other flashes)
 router.post(
 	'/',
+	isAuthed,
 	joiValidateCampground,
 	CatchAsync(async (req, res, next) => {
 		const campground = new Campground(req.body.campground);
