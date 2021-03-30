@@ -43,6 +43,7 @@ router.get(
 
 router.get(
 	'/:id/edit',
+	isAuthed,
 	CatchAsync(async (req, res) => {
 		const campground = await Campground.findById(req.params.id);
 		if (!campground) {
@@ -69,6 +70,7 @@ router.post(
 // flashes banner when campground is updated
 router.put(
 	'/:id',
+	isAuthed,
 	joiValidateCampground,
 	CatchAsync(async (req, res) => {
 		const { id } = req.params;
@@ -83,6 +85,7 @@ router.put(
 // flashes banner when campground is deleted
 router.delete(
 	'/:id',
+	isAuthed,
 	CatchAsync(async (req, res) => {
 		const { id } = req.params;
 		await Campground.findByIdAndDelete(id);
