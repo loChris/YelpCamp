@@ -1,21 +1,13 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const { reviewJoiSchema } = require('../schemas.js');
-const { isAuthed } = require('../middleware');
+const {
+	isAuthed,
+	isReviewAuthor,
+	joiValidateReview,
+} = require('../middleware');
 const CatchAsync = require('../utils/CatchAsync');
-const ExpressError = require('../utils/ExpressError');
 const Campground = require('../models/campground');
 const Review = require('../models/review');
-
-const joiValidateReview = (req, res, next) => {
-	const { error } = reviewJoiSchema.validate(req.body);
-	if (error) {
-		const message = error.details.map((el) => el.message).join(',');
-		throw new ExpressError(400, message);
-	} else {
-		return next();
-	}
-};
 
 // flashes success banner when review is created
 router.post(
@@ -36,6 +28,8 @@ router.post(
 
 router.delete(
 	'/:reviewId',
+	isAuthed,
+	isReviewAuthor,
 	CatchAsync(async (req, res) => {
 		const { id, reviewId } = req.params;
 		await Campground.findByIdAndUpdate(id, {
