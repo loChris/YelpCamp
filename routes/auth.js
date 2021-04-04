@@ -3,21 +3,20 @@ const router = express.Router();
 const passport = require('passport');
 const CatchAsync = require('../utils/CatchAsync');
 const authController = require('../controllers/auth');
+const passportAuth = passport.authenticate('local', {
+	failureFlash: true,
+	failureRedirect: '/login',
+});
 
-router.get('/register', authController.registerShow);
+router
+	.route('/register')
+	.get(authController.registerShow)
+	.post(CatchAsync(authController.registerNewUser));
 
-router.post('/register', CatchAsync(authController.registerNewUser));
-
-router.get('/login', authController.loginShow);
-
-router.post(
-	'/login',
-	passport.authenticate('local', {
-		failureFlash: true,
-		failureRedirect: '/login',
-	}),
-	authController.loginUser
-);
+router
+	.route('/login')
+	.get(authController.loginShow)
+	.post(passportAuth, authController.loginUser);
 
 router.get('/logout', authController.logoutUser);
 

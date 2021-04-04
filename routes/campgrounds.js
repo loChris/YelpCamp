@@ -4,42 +4,37 @@ const { isAuthed, isAuthor, joiValidateCampground } = require('../middleware');
 const campgroundsController = require('../controllers/campgrounds');
 const CatchAsync = require('../utils/CatchAsync');
 
-router.get('/', CatchAsync(campgroundsController.index));
+router
+	.route('/')
+	.get(CatchAsync(campgroundsController.index))
+	.post(
+		isAuthed,
+		joiValidateCampground,
+		CatchAsync(campgroundsController.addNewCampground)
+	);
+
+router
+	.route('/:id')
+	.get(CatchAsync(campgroundsController.campgroundShow))
+	.put(
+		isAuthed,
+		isAuthor,
+		joiValidateCampground,
+		CatchAsync(campgroundsController.updateCampground)
+	)
+	.delete(
+		isAuthed,
+		isAuthor,
+		CatchAsync(campgroundsController.deleteCampground)
+	);
 
 router.get('/new', isAuthed, campgroundsController.newCampgroundShow);
-
-router.get('/:id', CatchAsync(campgroundsController.campgroundShow));
 
 router.get(
 	'/:id/edit',
 	isAuthed,
 	isAuthor,
 	CatchAsync(campgroundsController.editCampgroundShow)
-);
-
-// flashes a success banner when campground is successfully added via partial (same with other flashes)
-router.post(
-	'/',
-	isAuthed,
-	joiValidateCampground,
-	CatchAsync(campgroundsController.addNewCampground)
-);
-
-// flashes banner when campground is updated
-router.put(
-	'/:id',
-	isAuthed,
-	isAuthor,
-	joiValidateCampground,
-	CatchAsync(campgroundsController.updateCampground)
-);
-
-// flashes banner when campground is deleted
-router.delete(
-	'/:id',
-	isAuthed,
-	isAuthor,
-	CatchAsync(campgroundsController.deleteCampground)
 );
 
 module.exports = router;
