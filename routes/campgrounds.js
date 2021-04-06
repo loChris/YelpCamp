@@ -3,15 +3,22 @@ const router = express.Router();
 const { isAuthed, isAuthor, joiValidateCampground } = require('../middleware');
 const campgroundsController = require('../controllers/campgrounds');
 const CatchAsync = require('../utils/CatchAsync');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 router
 	.route('/')
 	.get(CatchAsync(campgroundsController.index))
-	.post(
-		isAuthed,
-		joiValidateCampground,
-		CatchAsync(campgroundsController.addNewCampground)
-	);
+	// .post(
+	// 	isAuthed,
+	// 	joiValidateCampground,
+	// 	CatchAsync(campgroundsController.addNewCampground)
+	// );
+	.post(upload.array('image'), (req, res) => {
+		res.send(req.files);
+	});
+
+router.get('/new', isAuthed, campgroundsController.newCampgroundShow);
 
 router
 	.route('/:id')
@@ -27,8 +34,6 @@ router
 		isAuthor,
 		CatchAsync(campgroundsController.deleteCampground)
 	);
-
-router.get('/new', isAuthed, campgroundsController.newCampgroundShow);
 
 router.get(
 	'/:id/edit',

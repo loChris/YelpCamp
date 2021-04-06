@@ -1,6 +1,12 @@
 <% layout('layout/boilerplate.ejs') %>
 <h1>Login</h1>
-<form action="/login" method="POST" class="needs-validation" novalidate>
+<form
+	action="/login"
+	method="POST"
+	class="needs-validation"
+	name="login-form"
+	novalidate
+>
 	<div class="mb-3">
 		<label class="form-label" for="username">Username</label>
 		<input
@@ -10,6 +16,7 @@
 			name="username"
 			id="username"
 			required
+			autofocus
 		/>
 		<div class="valid-feedback">Looks Good!</div>
 	</div>
