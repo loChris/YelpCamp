@@ -4,7 +4,8 @@ const { isAuthed, isAuthor, joiValidateCampground } = require('../middleware');
 const campgroundsController = require('../controllers/campgrounds');
 const CatchAsync = require('../utils/CatchAsync');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const { storage } = require('../cloudinary.config');
+const upload = multer({ storage });
 
 router
 	.route('/')
