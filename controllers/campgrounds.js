@@ -40,7 +40,12 @@ module.exports.editCampgroundShow = async (req, res) => {
 module.exports.addNewCampground = async (req, res, next) => {
 	const campground = new Campground(req.body.campground);
 	campground.author = req.user._id;
+	campground.images = req.files.map((f) => ({
+		url: f.path,
+		filename: f.filename,
+	}));
 	await campground.save();
+	console.log(campground);
 	req.flash('success', 'Successfully added a new campground!');
 	res.redirect(`/campgrounds/${campground._id}`);
 };
