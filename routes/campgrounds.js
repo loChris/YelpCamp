@@ -24,6 +24,7 @@ router
 	.get(CatchAsync(campgroundsController.campgroundShow))
 	.put(
 		isAuthed,
+		upload.array('image'),
 		isAuthor,
 		joiValidateCampground,
 		CatchAsync(campgroundsController.updateCampground)
