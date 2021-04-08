@@ -45,7 +45,7 @@ module.exports.addNewCampground = async (req, res, next) => {
 		filename: f.filename,
 	}));
 	await campground.save();
-	console.log(campground);
+	console.log(campground.images);
 	req.flash('success', 'Successfully added a new campground!');
 	res.redirect(`/campgrounds/${campground._id}`);
 };
