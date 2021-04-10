@@ -23,7 +23,7 @@ module.exports.campgroundShow = async (req, res) => {
 			},
 		})
 		.populate('author');
-	console.log(campground);
+
 	if (!campground) {
 		req.flash('error', 'Cannot find that campground');
 		return res.redirect('/campgrounds');
@@ -56,7 +56,7 @@ module.exports.addNewCampground = async (req, res, next) => {
 		filename: f.filename,
 	}));
 	await campground.save();
-	console.log(campground.images);
+
 	req.flash('success', 'Successfully added a new campground!');
 	res.redirect(`/campgrounds/${campground._id}`);
 };
@@ -82,7 +82,6 @@ module.exports.updateCampground = async (req, res) => {
 				},
 			},
 		});
-		console.log(campground);
 	}
 	await campground.save();
 	req.flash('success', 'Successfully updated campground!');
