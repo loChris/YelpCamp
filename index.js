@@ -60,10 +60,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get('/', (req, res) => {
-	res.render('home');
-});
-
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
 	res.locals.success = req.flash('success');
@@ -71,13 +67,8 @@ app.use((req, res, next) => {
 	return next();
 });
 
-app.get('/fakeUser', async (req, res) => {
-	const user = new User({
-		email: 'juice@gmail.com',
-		username: 'juiceee',
-	});
-	const newUser = await User.register(user, 'chicken');
-	res.send(newUser);
+app.get('/', (req, res) => {
+	res.render('home');
 });
 
 // *** CAMPGROUND ROUTES ***
