@@ -23,11 +23,13 @@ const db = mongoose.connection;
 const PORT = 3000;
 
 const sessionConfig = {
+	name: '__mtfbw.session',
 	secret: 'thisshouldbeabettersecret',
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
 		httpOnly: true,
+		// secure: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
 		maxAge: Date.now(),
 	},

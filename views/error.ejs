@@ -5,8 +5,10 @@
 		<div class="alert alert-danger" role="alert">
 			<h4 class="alert-heading">Oops!</h4>
 			<p><%= err.message %></p>
+			<% if (process.env.NODE_ENV !== 'production') { %>
 			<hr />
 			<p class="mb-0"><%= err.stack %></p>
+			<% } %>
 		</div>
 	</div>
 </div>
