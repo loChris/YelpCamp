@@ -23,7 +23,7 @@ const User = require('./models/user');
 const app = express();
 const db = mongoose.connection;
 const dbUrl = process.env.DB_URL;
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
