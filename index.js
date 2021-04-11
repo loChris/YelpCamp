@@ -13,6 +13,7 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 const ExpressError = require('./utils/ExpressError');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
@@ -59,6 +60,11 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(mongoSanitize());
+app.use(
+	helmet({
+		contentSecurityPolicy: false,
+	})
+);
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
