@@ -23,35 +23,30 @@ const User = require('./models/user');
 const app = express();
 const db = mongoose.connection;
 const dbUrl = process.env.DB_URL;
-const dbLocal = process.env.LOCAL_MONGO_DB;
 const PORT = 3000;
 
-mongoose.connect(dbLocal, {
+mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
 	useCreateIndex: true,
 	useUnifiedTopology: true,
 	useFindAndModify: false,
 });
 
-const mongoStoreOptions = {
-	url: dbUrl,
-	secret: 'thisshouldbeabettersecret',
-	touchAfter: 24 * 60 * 60,
-};
+const secret = process.env.SECRET || 'onlyratssharesecrets';
 
 const sessionConfig = {
 	name: '__mtfbw.session',
-	secret: 'thisshouldbeabettersecret',
+	secret,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
 		httpOnly: true,
-		// secure: true,
+		secure: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
 		maxAge: Date.now(),
 	},
 	store: MongoDBStore.create({
-		mongoUrl: dbLocal,
+		mongoUrl: dbUrl,
 		ttl: 14 * 24 * 60 * 60,
 	}),
 };
