@@ -15,7 +15,6 @@ const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const MongoDBStore = require('connect-mongo');
-const { MongoClient, ServerApiVersion } = require('mongodb');
 const ExpressError = require('./utils/ExpressError');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
@@ -31,14 +30,6 @@ mongoose.connect(dbUrl, {
   useCreateIndex: true,
   useUnifiedTopology: true,
   useFindAndModify: false
-});
-
-const client = new MongoClient(dbUrl, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true
-  }
 });
 
 const secret = process.env.SECRET || 'onlyratssharesecrets';
@@ -130,6 +121,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  console.log('in index: ', req.user);
+  console.log('session', req.session);
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   return next();
