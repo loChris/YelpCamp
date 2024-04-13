@@ -4,9 +4,10 @@ const Campground = require('./models/campground');
 const Review = require('./models/review');
 
 module.exports.isAuthed = (req, res, next) => {
+  console.log('REQ.USER: ', req.user);
   if (!req.isAuthenticated()) {
     req.flash('error', 'You must be signed in.');
-    return res.redirect('/campgrounds');
+    return res.redirect('/login');
   } else {
     return next();
   }
