@@ -1,10 +1,10 @@
-const { format } = require('morgan')
+const { format } = require('morgan');
 
 module.exports = {
   printWidth: 80,
   tabWidth: 2,
   useTabs: false,
-  semi: false,
+  semi: true,
   singleQuote: true,
   jsxSingleQuote: true,
   quoteProps: 'as-needed',
@@ -20,4 +20,4 @@ module.exports = {
   insertPragma: false,
   proseWrap: 'preserve',
   htmlWhitespaceSensitiviy: 'css'
-}
+};

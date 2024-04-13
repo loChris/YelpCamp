@@ -1,4 +1,4 @@
-const BaseJoi = require('joi')
+const BaseJoi = require('joi');
 
 // Helper extension for sanitizing joi
 const extension = (joi) => ({
@@ -13,17 +13,17 @@ const extension = (joi) => ({
         const clean = sanitizeHTML(value, {
           allowedTags: [],
           allowedAttributes: {}
-        })
+        });
         if (clean !== value) {
-          return helpers.error('string.escapeHTML', { value })
+          return helpers.error('string.escapeHTML', { value });
         }
-        return clean
+        return clean;
       }
     }
   }
-})
+});
 
-const Joi = BaseJoi.extend(extension)
+const Joi = BaseJoi.extend(extension);
 
 module.exports.campgroundJoiSchema = Joi.object({
   campground: Joi.object({
@@ -33,11 +33,11 @@ module.exports.campgroundJoiSchema = Joi.object({
     description: Joi.string().required().escapeHTML()
   }).required(),
   deleteImages: Joi.array()
-})
+});
 
 module.exports.reviewJoiSchema = Joi.object({
   review: Joi.object({
     rating: Joi.number().required().min(1).max(5),
     body: Joi.string().required().escapeHTML()
   }).required()
-})
+});
