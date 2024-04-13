@@ -121,8 +121,6 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
-  console.log('in index: ', req.user);
-  console.log('session', req.session);
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   return next();
