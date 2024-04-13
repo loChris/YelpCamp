@@ -1,14 +1,16 @@
+const { format } = require('morgan')
+
 module.exports = {
-  printWidth: 120,
+  printWidth: 80,
   tabWidth: 2,
   useTabs: false,
   semi: false,
   singleQuote: true,
   jsxSingleQuote: true,
-  quoteProps: 'as-neded',
+  quoteProps: 'as-needed',
   trailingComma: 'none',
   bracketSpacing: true,
-  arrowParens: 'aways',
+  arrowParens: 'always',
   endOfLine: 'lf',
   jsxBracketSameLine: false,
   // defaults

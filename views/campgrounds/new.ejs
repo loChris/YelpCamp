@@ -1,86 +1,86 @@
 <% layout('layout/boilerplate.ejs') %>
 
 <div class="row">
-	<h1 class="text-center">New Campground</h1>
-	<div class="col-6 offset-3">
-		<form
-			action="/campgrounds"
-			method="POST"
-			novalidate
-			class="needs-validation"
-			enctype="multipart/form-data"
-		>
-			<div class="mb-3">
-				<label class="form-label" for="title">Title</label>
-				<input
-					required
-					class="form-control"
-					type="text"
-					name="campground[title]"
-					id="title"
-					autofocus
-				/>
-				<div class="valid-feedback">Looks Good!</div>
-			</div>
+  <h1 class="text-center">New Campground</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/campgrounds"
+      method="POST"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input
+          required
+          class="form-control"
+          type="text"
+          name="campground[title]"
+          id="title"
+          autofocus
+        />
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
 
-			<div class="mb-3">
-				<label class="form-label" for="location">Location</label>
-				<input
-					required
-					class="form-control"
-					type="text"
-					name="campground[location]"
-					id="location"
-				/>
-				<div class="valid-feedback">Looks Good!</div>
-			</div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input
+          required
+          class="form-control"
+          type="text"
+          name="campground[location]"
+          id="location"
+        />
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
 
-			<div class="mb-3">
-				<label for="image" class="form-label">Choose Images</label>
-				<input
-					name="image"
-					class="form-control"
-					type="file"
-					id="image"
-					multiple
-				/>
-				<div class="valid-feedback">Looks Good!</div>
-			</div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Choose Images</label>
+        <input
+          name="image"
+          class="form-control"
+          type="file"
+          id="image"
+          multiple
+        />
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
 
-			<div class="mb-3">
-				<label class="form-label" for="price">Campground Price</label>
-				<div class="input-group">
-					<span class="input-group-text">$</span>
-					<input
-						required
-						type="text"
-						name="campground[price]"
-						class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						id="price"
-						placeholder="0.00"
-					/>
-					<div class="valid-feedback">Looks Good!</div>
-				</div>
-			</div>
+      <div class="mb-3">
+        <label class="form-label" for="price">Campground Price</label>
+        <div class="input-group">
+          <span class="input-group-text">$</span>
+          <input
+            required
+            type="text"
+            name="campground[price]"
+            class="form-control"
+            aria-label="Amount (to the nearest dollar)"
+            id="price"
+            placeholder="0.00"
+          />
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+      </div>
 
-			<div class="mb-3">
-				<label class="form-label" for="description">Description</label>
-				<textarea
-					required
-					class="form-control"
-					name="campground[description]"
-					id="description"
-					cols="30"
-					rows="10"
-				></textarea>
-				<div class="valid-feedback">Looks Good!</div>
-			</div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea
+          required
+          class="form-control"
+          name="campground[description]"
+          id="description"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
 
-			<div class="mb-3">
-				<button class="btn btn-success">Add Campground</button>
-			</div>
-			<a href="/campgrounds">Back To All Campgrounds</a>
-		</form>
-	</div>
+      <div class="mb-3">
+        <button class="btn btn-success">Add Campground</button>
+      </div>
+      <a href="/campgrounds">Back To All Campgrounds</a>
+    </form>
+  </div>
 </div>

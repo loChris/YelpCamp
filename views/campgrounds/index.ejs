@@ -4,44 +4,44 @@
 <div id="map" class="index-mapsize"></div>
 <h1>All Campgrounds</h1>
 <div>
-	<a href="/campgrounds/new">Add A New Campground</a>
+  <a href="/campgrounds/new">Add A New Campground</a>
 </div>
 
 <% for(let campground of campgrounds) { %>
 <div class="card mb-3">
-	<div class="row">
-		<div class="col-md-4">
-			<% if(campground.images.length) { %>
-			<img
-				src="<%= campground.images[0].url %>"
-				alt="Image of campground"
-				class="img-fluid"
-			/>
-			<% } else { %>
-			<img
-				src="https://res.cloudinary.com/dxlpc7ymd/image/upload/v1617921255/YelpCamp/jyn6fzgzf6c64hcdljs2.jpg "
-				alt="Image of campground"
-				class="img-fluid"
-			/>
-			<% } %>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body">
-				<h5 class="card-title"><%= campground.title %></h5>
-				<p class="card-text"><%= campground.description %></p>
-				<p class="card-text">
-					<small class="text-muted"><%= campground.location %></small>
-				</p>
-				<a href="/campgrounds/<%= campground._id %> " class="btn btn-primary">
-					View <%= campground.title %>
-				</a>
-			</div>
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-md-4">
+      <% if(campground.images.length) { %>
+      <img
+        src="<%= campground.images[0].url %>"
+        alt="Image of campground"
+        class="img-fluid"
+      />
+      <% } else { %>
+      <img
+        src="https://res.cloudinary.com/dxlpc7ymd/image/upload/v1617921255/YelpCamp/jyn6fzgzf6c64hcdljs2.jpg "
+        alt="Image of campground"
+        class="img-fluid"
+      />
+      <% } %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= campground.title %></h5>
+        <p class="card-text"><%= campground.description %></p>
+        <p class="card-text">
+          <small class="text-muted"><%= campground.location %></small>
+        </p>
+        <a href="/campgrounds/<%= campground._id %> " class="btn btn-primary">
+          View <%= campground.title %>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 <% } %>
 <script>
-	const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
-	const campgrounds = {features: <%- JSON.stringify(campgrounds) %>};
+  const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+  const campgrounds = {features: <%- JSON.stringify(campgrounds) %>};
 </script>
 <script src="/js/clusterMap.js"></script>
